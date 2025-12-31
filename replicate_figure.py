@@ -183,9 +183,12 @@ def plot_contributions(
         title = f"{title}\n{subtitle}"
     ax.set_title(title, fontsize=14, fontweight="bold")
 
-    # Axis limits
+    # Axis limits - use 70 for no-specialists, 80 for full version
     ax.set_xlim(1978, 2026)
-    ax.set_ylim(10, 80)
+    if exclude_pools and "specialists" in exclude_pools:
+        ax.set_ylim(10, 70)
+    else:
+        ax.set_ylim(10, 80)
 
     # Grid and legend
     ax.grid(True, alpha=0.3)
