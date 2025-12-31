@@ -15,6 +15,7 @@ Usage:
 Output:
     figures/physician_contributions_by_cycle.png
     figures/physician_contributions_no_specialists.png
+    figures/academic_vs_all_physicians.png
 
 For methodology details, see METHODOLOGY.md
 """
@@ -222,6 +223,62 @@ def plot_summary_stats(data: pd.DataFrame, output_path: Path) -> None:
     pass
 
 
+def plot_academic_physicians(output_path: Path, dpi: int = 150) -> None:
+    """Create plot comparing all physicians vs university-affiliated physicians.
+
+    This shows that academic/university-affiliated physicians are substantially
+    more Democratic than physicians overall.
+    """
+    data_path = Path(__file__).parent / "data" / "academic_physicians_full.csv"
+
+    if not data_path.exists():
+        print(f"  Skipping academic physicians plot (data file not found)")
+        return
+
+    df = pd.read_csv(data_path)
+
+    pool_config = {
+        'All Physicians': {'color': 'blue', 'display': 'All Physicians'},
+        'Academic Physicians': {'color': 'red', 'display': 'University-Affiliated Physicians'},
+        'Medical/Health Professors': {'color': 'darkgreen', 'display': 'Medical/Health Professors'}
+    }
+
+    fig, ax = plt.subplots(figsize=(18, 11))
+
+    for pool, config in pool_config.items():
+        pool_data = df[(df['pool'] == pool) & (df['n'] >= 50)].copy()
+        pool_data = pool_data.sort_values('cycle')
+        total_n = int(df[df['pool'] == pool]['n'].sum())
+        n_str = format_sample_size(total_n)
+
+        ax.plot(
+            pool_data['cycle'],
+            pool_data['rep_share'] * 100,
+            color=config['color'],
+            linewidth=3,
+            marker='o',
+            markersize=8,
+            label=f"{config['display']} (n={n_str})",
+            alpha=0.85
+        )
+
+    ax.axhline(y=50, color='gray', linestyle='--', alpha=0.5, linewidth=1.5)
+    ax.set_xlabel('Election Cycle', fontsize=28)
+    ax.set_ylabel('% Contributions\nto Republicans', fontsize=28)
+    ax.set_title('% Political Contributions to Republicans (vs Democrats):\nAll Physicians, University-Affiliated Physicians, and Medical/Health Professors',
+                 fontsize=24, fontweight='bold', pad=20)
+    ax.set_xlim(1988, 2026)
+    ax.set_ylim(0, 70)
+    ax.legend(loc='upper right', fontsize=18, framealpha=0.95)
+    ax.grid(True, alpha=0.3)
+    ax.tick_params(axis='both', which='major', labelsize=20)
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=dpi, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: {output_path}")
+
+
 # =============================================================================
 # Main Entry Point
 # =============================================================================
@@ -310,6 +367,12 @@ Examples:
         output_dir / "physician_contributions_no_specialists.png",
         exclude_pools=["specialists", "cms_medicare"],
         subtitle="",
+        dpi=args.dpi,
+    )
+
+    # Academic physicians comparison
+    plot_academic_physicians(
+        output_dir / "academic_vs_all_physicians.png",
         dpi=args.dpi,
     )
 

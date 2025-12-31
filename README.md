@@ -9,9 +9,13 @@ This repository provides data and code to replicate figures showing the dramatic
 
 ![Physician Political Contributions by Election Cycle](figures/physician_contributions_by_cycle.png)
 
-## Key Finding
+## Key Findings
 
-Physicians have shifted from giving **~65% to Republicans** in the 1980s to giving **~75-80% to Democrats** by 2018-2020. This represents one of the most dramatic partisan shifts of any professional group in American politics.
+1. **Physicians overall** have shifted from giving **~65% to Republicans** in the 1980s to giving **~75-80% to Democrats** by 2018-2020. This represents one of the most dramatic partisan shifts of any professional group in American politics.
+
+2. **University-affiliated physicians** are even more Democratic - giving only **~12% to Republicans** overall, compared to 36% for all physicians. By 2020, university-affiliated physicians gave just **4% to Republicans**.
+
+![Academic vs All Physicians](figures/academic_vs_all_physicians.png)
 
 ## Quick Start
 
@@ -93,10 +97,12 @@ dime_donations_doctors/
 ├── LICENSE                   # MIT License
 ├── replicate_figure.py       # Script to generate figures
 ├── data/
-│   └── yearly_contributions_by_pool.csv   # Pre-computed statistics
+│   ├── yearly_contributions_by_pool.csv   # Pre-computed statistics
+│   └── academic_physicians_full.csv       # Academic vs all physicians data
 └── figures/
     ├── physician_contributions_by_cycle.png
-    └── physician_contributions_no_specialists.png
+    ├── physician_contributions_no_specialists.png
+    └── academic_vs_all_physicians.png
 ```
 
 ## Data Dictionary
