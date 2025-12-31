@@ -262,13 +262,17 @@ def plot_academic_physicians(output_path: Path, dpi: int = 150) -> None:
             alpha=0.85
         )
 
-    ax.axhline(y=50, color='gray', linestyle='--', alpha=0.5, linewidth=1.5)
+    # Bold dashed 50% line with label above
+    ax.axhline(y=50, color='black', linestyle='--', linewidth=2.5, alpha=0.7)
+    ax.text(2015, 53, '50% Republican', fontsize=16, va='bottom', ha='left', fontweight='bold')
+
     ax.set_xlabel('Election Cycle', fontsize=28)
     ax.set_ylabel('% Contributions\nto Republicans', fontsize=28)
     ax.set_title('% Political Contributions to Republicans (vs Democrats):\nAll Physicians, University-Affiliated Physicians, and Medical/Health Professors',
                  fontsize=24, fontweight='bold', pad=20)
     ax.set_xlim(1988, 2026)
-    ax.set_ylim(0, 70)
+    ax.set_ylim(0, 100)
+    ax.set_yticks(range(0, 101, 10))
     ax.legend(loc='upper right', fontsize=18, framealpha=0.95)
     ax.grid(True, alpha=0.3)
     ax.tick_params(axis='both', which='major', labelsize=20)
