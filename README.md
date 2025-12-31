@@ -17,7 +17,9 @@ This repository provides data and code to replicate figures showing the dramatic
 
 ![Academic vs All Physicians](figures/academic_vs_all_physicians.png)
 
-## Quick Start
+## Quick Start (Pre-computed Data)
+
+If you just want to generate the figures using our pre-computed data:
 
 ```bash
 # Clone the repository
@@ -32,6 +34,51 @@ python replicate_figure.py
 ```
 
 Output figures will be saved to the `figures/` directory.
+
+## Full Replication (From Raw DIME Data)
+
+To replicate the entire analysis from scratch using raw DIME data:
+
+### 1. Obtain DIME Data
+
+Request access to the DIME database from Stanford University:
+- **Website**: [data.stanford.edu/dime](https://data.stanford.edu/dime)
+- Download the itemized contribution files (1980-2024)
+- Place them in `data/raw/dime/`
+
+### 2. Run the Pipeline
+
+```bash
+# Install all dependencies
+pip install -r requirements.txt
+
+# Run the full pipeline
+python scripts/run_pipeline.py
+
+# Or run individual steps
+python scripts/run_pipeline.py --list          # List all steps
+python scripts/run_pipeline.py --skip-to 34    # Skip to script 34
+python scripts/run_pipeline.py --only 34       # Run only script 34
+```
+
+### Pipeline Steps
+
+| Script | Description |
+|--------|-------------|
+| `00_streaming_ingest.py` | Download and process DIME contribution data |
+| `01_ingest_data.py` | Ingest NPPES physician registry data |
+| `02_build_physician_labels.py` | Build physician classification labels |
+| `02b_add_cms_linkage.py` | Add CMS Medicare linkage (optional) |
+| `02c_add_pecos_linkage.py` | Add PECOS enrollment data (optional) |
+| `03_build_donor_panel.py` | Build donor-cycle panel |
+| `34_yearly_contributions_by_pool.py` | Analyze yearly contributions |
+| `35_academic_physicians.py` | Analyze academic physicians |
+
+### System Requirements
+
+- **Disk Space**: ~100GB for raw DIME data + processed files
+- **Memory**: 8GB+ RAM recommended
+- **Time**: Full pipeline takes several hours
 
 ## What This Shows
 
@@ -95,10 +142,34 @@ dime_donations_doctors/
 ├── METHODOLOGY.md            # Detailed methodology explanation
 ├── requirements.txt          # Python dependencies
 ├── LICENSE                   # MIT License
-├── replicate_figure.py       # Script to generate figures
-├── data/
-│   ├── yearly_contributions_by_pool.csv   # Pre-computed statistics
-│   └── academic_physicians_full.csv       # Academic vs all physicians data
+├── setup.py                  # Package installation
+│
+├── replicate_figure.py       # Quick: Generate figures from pre-computed data
+│
+├── scripts/                  # Full pipeline scripts
+│   ├── run_pipeline.py       # Orchestrator - runs all scripts
+│   ├── 00_streaming_ingest.py
+│   ├── 01_ingest_data.py
+│   ├── 02_build_physician_labels.py
+│   ├── 02b_add_cms_linkage.py
+│   ├── 02c_add_pecos_linkage.py
+│   ├── 03_build_donor_panel.py
+│   ├── 34_yearly_contributions_by_pool.py
+│   └── 35_academic_physicians.py
+│
+├── src/                      # Supporting modules
+│   ├── config.py             # Path configuration
+│   ├── streaming_ingest.py   # DIME data processing
+│   └── ...                   # Other processing modules
+│
+├── config/                   # Configuration files
+│   └── keyword_rules.yaml    # Physician classification rules
+│
+├── data/                     # Pre-computed outputs (for quick replication)
+│   ├── yearly_contributions_by_pool.csv
+│   ├── academic_physicians_full.csv
+│   └── academic_physicians_donor_weighted.csv
+│
 └── figures/
     ├── physician_contributions_by_cycle.png
     ├── physician_contributions_no_specialists.png

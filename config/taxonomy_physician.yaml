@@ -1,0 +1,491 @@
+# NUCC Healthcare Provider Taxonomy Configuration
+# Defines which taxonomy codes classify as "physician" for this analysis
+#
+# Reference: https://www.nucc.org/index.php/code-sets-mainmenu-41/provider-taxonomy-mainmenu-40
+# The NUCC taxonomy uses a hierarchical 10-character code system.
+# First 2 characters = Provider Grouping (e.g., "20" = Allopathic & Osteopathic Physicians)
+
+# Physician groupings (Type 1 individual providers only)
+physician_groupings:
+  # Allopathic & Osteopathic Physicians (MD, DO)
+  allopathic_osteopathic:
+    code_prefix: "20"
+    description: "Allopathic & Osteopathic Physicians"
+    include: true
+
+# Specific taxonomy codes to INCLUDE as physicians
+# These are the primary physician specialty codes
+physician_codes:
+  # Internal Medicine and subspecialties
+  - code: "207R00000X"
+    specialty: "Internal Medicine"
+  - code: "207RC0000X"
+    specialty: "Cardiovascular Disease"
+  - code: "207RG0100X"
+    specialty: "Gastroenterology"
+  - code: "207RH0000X"
+    specialty: "Hematology"
+  - code: "207RI0001X"
+    specialty: "Clinical & Laboratory Immunology"
+  - code: "207RI0008X"
+    specialty: "Hepatology"
+  - code: "207RI0011X"
+    specialty: "Interventional Cardiology"
+  - code: "207RI0200X"
+    specialty: "Infectious Disease"
+  - code: "207RM1200X"
+    specialty: "Magnetic Resonance Imaging"
+  - code: "207RN0300X"
+    specialty: "Nephrology"
+  - code: "207RP1001X"
+    specialty: "Pulmonary Disease"
+  - code: "207RR0500X"
+    specialty: "Rheumatology"
+
+  # Family Medicine
+  - code: "207Q00000X"
+    specialty: "Family Medicine"
+  - code: "207QA0000X"
+    specialty: "Adolescent Medicine (Family Medicine)"
+  - code: "207QA0505X"
+    specialty: "Adult Medicine"
+  - code: "207QG0300X"
+    specialty: "Geriatric Medicine (Family Medicine)"
+  - code: "207QS0010X"
+    specialty: "Sports Medicine (Family Medicine)"
+
+  # General Practice
+  - code: "208D00000X"
+    specialty: "General Practice"
+
+  # Surgery specialties
+  - code: "208600000X"
+    specialty: "Surgery"
+  - code: "2086S0102X"
+    specialty: "Surgical Critical Care"
+  - code: "2086S0105X"
+    specialty: "Surgery of the Hand"
+  - code: "2086S0120X"
+    specialty: "Pediatric Surgery"
+  - code: "2086S0122X"
+    specialty: "Plastic and Reconstructive Surgery"
+  - code: "2086S0127X"
+    specialty: "Trauma Surgery"
+  - code: "2086S0129X"
+    specialty: "Vascular Surgery"
+  - code: "2086X0206X"
+    specialty: "Surgical Oncology"
+
+  # Cardiothoracic Surgery
+  - code: "208G00000X"
+    specialty: "Thoracic Surgery (Cardiothoracic Vascular Surgery)"
+
+  # Orthopedic Surgery
+  - code: "207X00000X"
+    specialty: "Orthopaedic Surgery"
+  - code: "207XS0106X"
+    specialty: "Orthopaedic Hand Surgery"
+  - code: "207XS0114X"
+    specialty: "Adult Reconstructive Orthopaedic Surgery"
+  - code: "207XS0117X"
+    specialty: "Orthopaedic Surgery of the Spine"
+  - code: "207XX0004X"
+    specialty: "Orthopaedic Foot and Ankle Surgery"
+  - code: "207XX0005X"
+    specialty: "Sports Medicine (Orthopaedic Surgery)"
+  - code: "207XX0801X"
+    specialty: "Orthopaedic Trauma"
+
+  # Neurological Surgery
+  - code: "207T00000X"
+    specialty: "Neurological Surgery"
+
+  # Plastic Surgery
+  - code: "208200000X"
+    specialty: "Plastic Surgery"
+  - code: "2082S0099X"
+    specialty: "Plastic Surgery Within the Head and Neck"
+  - code: "2082S0105X"
+    specialty: "Surgery of the Hand (Plastic Surgery)"
+
+  # Urology
+  - code: "208800000X"
+    specialty: "Urology"
+  - code: "2088P0231X"
+    specialty: "Pediatric Urology"
+
+  # Obstetrics & Gynecology
+  - code: "207V00000X"
+    specialty: "Obstetrics & Gynecology"
+  - code: "207VC0200X"
+    specialty: "Critical Care Medicine (Obstetrics & Gynecology)"
+  - code: "207VE0102X"
+    specialty: "Reproductive Endocrinology"
+  - code: "207VF0040X"
+    specialty: "Female Pelvic Medicine and Reconstructive Surgery"
+  - code: "207VG0400X"
+    specialty: "Gynecology"
+  - code: "207VH0002X"
+    specialty: "Hospice and Palliative Medicine (Obstetrics & Gynecology)"
+  - code: "207VM0101X"
+    specialty: "Maternal & Fetal Medicine"
+  - code: "207VX0000X"
+    specialty: "Obstetrics"
+  - code: "207VX0201X"
+    specialty: "Gynecologic Oncology"
+
+  # Pediatrics
+  - code: "208000000X"
+    specialty: "Pediatrics"
+  - code: "2080A0000X"
+    specialty: "Pediatric Adolescent Medicine"
+  - code: "2080C0008X"
+    specialty: "Child Abuse Pediatrics"
+  - code: "2080H0002X"
+    specialty: "Hospice and Palliative Medicine (Pediatrics)"
+  - code: "2080I0007X"
+    specialty: "Clinical & Laboratory Immunology (Pediatrics)"
+  - code: "2080N0001X"
+    specialty: "Neonatal-Perinatal Medicine"
+  - code: "2080P0006X"
+    specialty: "Developmental-Behavioral Pediatrics"
+  - code: "2080P0008X"
+    specialty: "Neurodevelopmental Disabilities"
+  - code: "2080P0201X"
+    specialty: "Pediatric Allergy/Immunology"
+  - code: "2080P0202X"
+    specialty: "Pediatric Cardiology"
+  - code: "2080P0203X"
+    specialty: "Pediatric Critical Care Medicine"
+  - code: "2080P0204X"
+    specialty: "Pediatric Emergency Medicine"
+  - code: "2080P0205X"
+    specialty: "Pediatric Endocrinology"
+  - code: "2080P0206X"
+    specialty: "Pediatric Gastroenterology"
+  - code: "2080P0207X"
+    specialty: "Pediatric Hematology-Oncology"
+  - code: "2080P0208X"
+    specialty: "Pediatric Infectious Diseases"
+  - code: "2080P0210X"
+    specialty: "Pediatric Nephrology"
+  - code: "2080P0214X"
+    specialty: "Pediatric Pulmonology"
+  - code: "2080P0216X"
+    specialty: "Pediatric Rheumatology"
+  - code: "2080S0010X"
+    specialty: "Sports Medicine (Pediatrics)"
+  - code: "2080T0002X"
+    specialty: "Medical Toxicology (Pediatrics)"
+  - code: "2080T0004X"
+    specialty: "Pediatric Transplant Hepatology"
+
+  # Psychiatry & Neurology
+  - code: "2084N0400X"
+    specialty: "Neurology"
+  - code: "2084N0402X"
+    specialty: "Neurology with Special Qualifications in Child Neurology"
+  - code: "2084P0800X"
+    specialty: "Psychiatry"
+  - code: "2084P0802X"
+    specialty: "Addiction Psychiatry"
+  - code: "2084P0804X"
+    specialty: "Child & Adolescent Psychiatry"
+  - code: "2084P0805X"
+    specialty: "Geriatric Psychiatry"
+  - code: "2084F0202X"
+    specialty: "Forensic Psychiatry"
+  - code: "2084P2900X"
+    specialty: "Pain Medicine (Psychiatry)"
+  - code: "2084S0010X"
+    specialty: "Sports Medicine (Psychiatry)"
+
+  # Emergency Medicine
+  - code: "207P00000X"
+    specialty: "Emergency Medicine"
+  - code: "207PE0004X"
+    specialty: "Emergency Medical Services"
+  - code: "207PE0005X"
+    specialty: "Undersea and Hyperbaric Medicine"
+  - code: "207PH0002X"
+    specialty: "Hospice and Palliative Medicine (Emergency Medicine)"
+  - code: "207PS0010X"
+    specialty: "Sports Medicine (Emergency Medicine)"
+  - code: "207PT0002X"
+    specialty: "Medical Toxicology (Emergency Medicine)"
+
+  # Radiology
+  - code: "2085B0100X"
+    specialty: "Body Imaging"
+  - code: "2085D0003X"
+    specialty: "Diagnostic Neuroimaging"
+  - code: "2085H0002X"
+    specialty: "Hospice and Palliative Medicine (Radiology)"
+  - code: "2085N0700X"
+    specialty: "Neuroradiology"
+  - code: "2085N0904X"
+    specialty: "Nuclear Radiology"
+  - code: "2085P0229X"
+    specialty: "Pediatric Radiology"
+  - code: "2085R0001X"
+    specialty: "Radiation Oncology"
+  - code: "2085R0202X"
+    specialty: "Diagnostic Radiology"
+  - code: "2085R0203X"
+    specialty: "Therapeutic Radiology"
+  - code: "2085R0204X"
+    specialty: "Vascular & Interventional Radiology"
+  - code: "2085R0205X"
+    specialty: "Radiological Physics"
+  - code: "2085U0001X"
+    specialty: "Diagnostic Ultrasound"
+
+  # Anesthesiology
+  - code: "207L00000X"
+    specialty: "Anesthesiology"
+  - code: "207LA0401X"
+    specialty: "Addiction Medicine (Anesthesiology)"
+  - code: "207LC0200X"
+    specialty: "Critical Care Medicine (Anesthesiology)"
+  - code: "207LH0002X"
+    specialty: "Hospice and Palliative Medicine (Anesthesiology)"
+  - code: "207LP2900X"
+    specialty: "Pain Medicine (Anesthesiology)"
+  - code: "207LP3000X"
+    specialty: "Pediatric Anesthesiology"
+
+  # Pathology
+  - code: "207ZB0001X"
+    specialty: "Blood Banking & Transfusion Medicine"
+  - code: "207ZC0006X"
+    specialty: "Clinical Pathology"
+  - code: "207ZC0008X"
+    specialty: "Clinical Informatics"
+  - code: "207ZC0500X"
+    specialty: "Cytopathology"
+  - code: "207ZD0900X"
+    specialty: "Dermatopathology (Pathology)"
+  - code: "207ZF0201X"
+    specialty: "Forensic Pathology"
+  - code: "207ZH0000X"
+    specialty: "Hematology (Pathology)"
+  - code: "207ZI0100X"
+    specialty: "Immunopathology"
+  - code: "207ZM0300X"
+    specialty: "Medical Microbiology"
+  - code: "207ZN0500X"
+    specialty: "Neuropathology"
+  - code: "207ZP0007X"
+    specialty: "Molecular Genetic Pathology"
+  - code: "207ZP0101X"
+    specialty: "Anatomic Pathology"
+  - code: "207ZP0102X"
+    specialty: "Anatomic Pathology & Clinical Pathology"
+  - code: "207ZP0104X"
+    specialty: "Chemical Pathology"
+  - code: "207ZP0105X"
+    specialty: "Clinical Pathology/Laboratory Medicine"
+  - code: "207ZP0213X"
+    specialty: "Pediatric Pathology"
+
+  # Dermatology
+  - code: "207N00000X"
+    specialty: "Dermatology"
+  - code: "207ND0101X"
+    specialty: "MOHS-Micrographic Surgery"
+  - code: "207ND0900X"
+    specialty: "Dermatopathology"
+  - code: "207NI0002X"
+    specialty: "Clinical & Laboratory Dermatological Immunology"
+  - code: "207NP0225X"
+    specialty: "Pediatric Dermatology"
+  - code: "207NS0135X"
+    specialty: "Procedural Dermatology"
+
+  # Ophthalmology
+  - code: "207W00000X"
+    specialty: "Ophthalmology"
+  - code: "207WX0200X"
+    specialty: "Ophthalmic Plastic and Reconstructive Surgery"
+
+  # Otolaryngology
+  - code: "207Y00000X"
+    specialty: "Otolaryngology"
+  - code: "207YP0228X"
+    specialty: "Pediatric Otolaryngology"
+  - code: "207YS0123X"
+    specialty: "Facial Plastic Surgery"
+  - code: "207YX0007X"
+    specialty: "Plastic Surgery within the Head & Neck"
+  - code: "207YX0602X"
+    specialty: "Otolaryngic Allergy"
+  - code: "207YX0901X"
+    specialty: "Otology & Neurotology"
+  - code: "207YX0905X"
+    specialty: "Otolaryngology/Facial Plastic Surgery"
+
+  # Physical Medicine & Rehabilitation
+  - code: "208100000X"
+    specialty: "Physical Medicine & Rehabilitation"
+  - code: "2081H0002X"
+    specialty: "Hospice and Palliative Medicine (Physical Medicine & Rehabilitation)"
+  - code: "2081N0001X"
+    specialty: "Neuromuscular Medicine"
+  - code: "2081P0004X"
+    specialty: "Spinal Cord Injury Medicine"
+  - code: "2081P0010X"
+    specialty: "Pediatric Rehabilitation Medicine"
+  - code: "2081P0301X"
+    specialty: "Brain Injury Medicine"
+  - code: "2081P2900X"
+    specialty: "Pain Medicine (Physical Medicine & Rehabilitation)"
+  - code: "2081S0010X"
+    specialty: "Sports Medicine (Physical Medicine & Rehabilitation)"
+
+  # Allergy & Immunology
+  - code: "207K00000X"
+    specialty: "Allergy & Immunology"
+  - code: "207KA0200X"
+    specialty: "Allergy"
+  - code: "207KI0005X"
+    specialty: "Clinical & Laboratory Immunology (Allergy & Immunology)"
+
+  # Colon & Rectal Surgery
+  - code: "208C00000X"
+    specialty: "Colon & Rectal Surgery"
+
+  # Preventive Medicine
+  - code: "2083A0100X"
+    specialty: "Aerospace Medicine"
+  - code: "2083A0300X"
+    specialty: "Addiction Medicine (Preventive Medicine)"
+  - code: "2083B0002X"
+    specialty: "Obesity Medicine"
+  - code: "2083C0008X"
+    specialty: "Clinical Informatics"
+  - code: "2083P0011X"
+    specialty: "Undersea and Hyperbaric Medicine"
+  - code: "2083P0500X"
+    specialty: "Preventive Medicine/Occupational Environmental Medicine"
+  - code: "2083P0901X"
+    specialty: "Public Health & General Preventive Medicine"
+  - code: "2083S0010X"
+    specialty: "Sports Medicine (Preventive Medicine)"
+  - code: "2083T0002X"
+    specialty: "Medical Toxicology (Preventive Medicine)"
+  - code: "2083X0100X"
+    specialty: "Occupational Medicine"
+
+  # Nuclear Medicine
+  - code: "207U00000X"
+    specialty: "Nuclear Medicine"
+  - code: "207UN0901X"
+    specialty: "Nuclear Cardiology"
+  - code: "207UN0902X"
+    specialty: "Nuclear Imaging & Therapy"
+  - code: "207UN0903X"
+    specialty: "In Vivo & In Vitro Nuclear Medicine"
+
+  # Medical Genetics
+  - code: "207SC0300X"
+    specialty: "Clinical Cytogenetics"
+  - code: "207SG0201X"
+    specialty: "Clinical Genetics (M.D.)"
+  - code: "207SG0202X"
+    specialty: "Clinical Biochemical Genetics"
+  - code: "207SG0203X"
+    specialty: "Clinical Molecular Genetics"
+  - code: "207SG0205X"
+    specialty: "Ph.D. Medical Genetics"
+  - code: "207SM0001X"
+    specialty: "Molecular Genetic Pathology (Medical Genetics)"
+
+  # Hospitalist
+  - code: "208M00000X"
+    specialty: "Hospitalist"
+
+  # Sleep Medicine
+  - code: "2080S0012X"
+    specialty: "Sleep Medicine"
+
+# Taxonomy codes to EXCLUDE (non-physicians that might match other criteria)
+excluded_codes:
+  # Chiropractors
+  - code_prefix: "111N"
+    description: "Chiropractor"
+
+  # Dentists (analyze separately if desired)
+  - code_prefix: "122"
+    description: "Dentist"
+
+  # Podiatrists (analyze separately if desired)
+  - code_prefix: "213E"
+    description: "Podiatrist"
+
+  # Optometrists
+  - code_prefix: "152W"
+    description: "Optometrist"
+
+  # Psychologists
+  - code_prefix: "103T"
+    description: "Psychologist"
+
+  # Nurse Practitioners
+  - code_prefix: "363L"
+    description: "Nurse Practitioner"
+
+  # Physician Assistants
+  - code_prefix: "363A"
+    description: "Physician Assistant"
+
+  # Naturopaths
+  - code_prefix: "175F"
+    description: "Naturopath"
+
+# Specialty groupings for analysis stratification
+specialty_groups:
+  primary_care:
+    - "Family Medicine"
+    - "General Practice"
+    - "Internal Medicine"
+    - "Pediatrics"
+
+  surgical:
+    - "Surgery"
+    - "Orthopaedic Surgery"
+    - "Neurological Surgery"
+    - "Plastic Surgery"
+    - "Thoracic Surgery (Cardiothoracic Vascular Surgery)"
+    - "Urology"
+    - "Colon & Rectal Surgery"
+    - "Ophthalmology"
+    - "Otolaryngology"
+
+  hospital_based:
+    - "Anesthesiology"
+    - "Emergency Medicine"
+    - "Radiology"
+    - "Pathology"
+    - "Hospitalist"
+
+  medical_subspecialty:
+    - "Cardiovascular Disease"
+    - "Gastroenterology"
+    - "Pulmonary Disease"
+    - "Nephrology"
+    - "Rheumatology"
+    - "Infectious Disease"
+    - "Hematology"
+    - "Endocrinology"
+    - "Oncology"
+
+  psychiatry_neurology:
+    - "Psychiatry"
+    - "Neurology"
+    - "Child & Adolescent Psychiatry"
+
+  ob_gyn:
+    - "Obstetrics & Gynecology"
+    - "Gynecology"
+    - "Obstetrics"
+    - "Maternal & Fetal Medicine"

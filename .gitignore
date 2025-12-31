@@ -39,3 +39,11 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Data directories (raw and processed data - too large to commit)
+data/raw/
+data/processed/
+outputs/
+
+# Models
+models/

@@ -1,0 +1,336 @@
+# Keyword Rules for Physician Identification
+# Used for rule-based classification of DIME donor occupation/employer fields
+#
+# Three tiers of rules:
+#   tier1_positive: High confidence physician indicators (score = 1.0)
+#   tier2_positive: Likely physician indicators (score = 0.7)
+#   tier3_negative: Exclusion patterns to prevent false positives (score = 0)
+
+# Tier 1: High-confidence positive indicators
+# If ANY of these match, classify as physician (unless excluded by tier3)
+tier1_positive:
+  # Credentials (look for these patterns in occupation/name fields)
+  credentials:
+    - "\\bM\\.?D\\.?\\b"           # MD, M.D.
+    - "\\bD\\.?O\\.?\\b"           # DO, D.O. (Doctor of Osteopathy)
+    - "\\bM\\.?B\\.?B\\.?S\\.?\\b" # MBBS (international medical degree)
+    - "\\bM\\.?B\\.?Ch\\.?B\\.?\\b" # MBChB (UK/Commonwealth)
+
+    # Fellowship credentials (strong physician indicators)
+    - "\\bFACP\\b"                 # Fellow, American College of Physicians
+    - "\\bFACS\\b"                 # Fellow, American College of Surgeons
+    - "\\bFACC\\b"                 # Fellow, American College of Cardiology
+    - "\\bFACEP\\b"                # Fellow, American College of Emergency Physicians
+    - "\\bFAAP\\b"                 # Fellow, American Academy of Pediatrics
+    - "\\bFAHA\\b"                 # Fellow, American Heart Association
+    - "\\bFACOG\\b"                # Fellow, American College of OB/GYN
+    - "\\bFAAN\\b"                 # Fellow, American Academy of Neurology
+    - "\\bFASA\\b"                 # Fellow, American Society of Anesthesiologists
+
+    # British/Commonwealth credentials
+    - "\\bFRCS\\b"                 # Fellow, Royal College of Surgeons
+    - "\\bMRCP\\b"                 # Member, Royal College of Physicians
+    - "\\bMRCGP\\b"                # Member, Royal College of GPs
+    - "\\bFRCPath\\b"              # Fellow, Royal College of Pathologists
+
+    # Board certification mention
+    - "\\bdiplomate\\b"            # Board-certified physician
+
+  # Medical specialties (unambiguous physician terms)
+  specialties:
+    # Surgical specialties
+    - "\\bsurgeon\\b"
+    - "\\bneurosurgeon\\b"
+    - "\\bcardiothoracic\\s+surgeon\\b"
+    - "\\borthopedic\\s+surgeon\\b"
+    - "\\borthopaedic\\s+surgeon\\b"
+    - "\\bplastic\\s+surgeon\\b"
+    - "\\bvascular\\s+surgeon\\b"
+    - "\\bgeneral\\s+surgeon\\b"
+    - "\\btrauma\\s+surgeon\\b"
+    - "\\bpediatric\\s+surgeon\\b"
+    - "\\btransplant\\s+surgeon\\b"
+    - "\\bbariatric\\s+surgeon\\b"
+
+    # Medical specialties
+    - "\\bcardiologist\\b"
+    - "\\bgastroenterologist\\b"
+    - "\\bnephrologist\\b"
+    - "\\bneurologist\\b"
+    - "\\boncologist\\b"
+    - "\\bpulmonologist\\b"
+    - "\\brheumatologist\\b"
+    - "\\bdermatologist\\b"
+    - "\\bendocrinologist\\b"
+    - "\\bhematologist\\b"
+    - "\\bimmunologist\\b"
+    - "\\binfectious\\s+disease\\b"
+    - "\\bgeriatrician\\b"
+    - "\\bneonatologist\\b"
+    - "\\bperinatologist\\b"
+    - "\\bhospitalist\\b"
+    - "\\bintensivist\\b"
+
+    # Surgical subspecialties
+    - "\\burologist\\b"
+    - "\\bophthalmologist\\b"
+    - "\\botolaryngologist\\b"
+    - "\\bent\\s+(?:specialist|physician|surgeon|doctor)\\b"
+    - "\\bothopedist\\b"
+    - "\\borthopaedist\\b"
+
+    # Diagnostic/hospital-based
+    - "\\banesthesiologist\\b"
+    - "\\bradiologist\\b"
+    - "\\bpathologist\\b"
+    - "\\bnuclear\\s+medicine\\b"
+    - "\\binterventional\\s+radiologist\\b"
+    - "\\bneuroradiologist\\b"
+
+    # Psychiatry (careful - psychologist is different)
+    - "\\bpsychiatrist\\b"
+
+    # Primary care with MD context
+    - "\\binternist\\b"
+
+    # Obstetrics/Gynecology
+    - "\\bobstetrician\\b"
+    - "\\bgynecologist\\b"
+    - "\\bob/?gyn\\b"
+
+    # Emergency medicine
+    - "\\bemergency\\s+(?:medicine\\s+)?physician\\b"
+    - "\\ber\\s+(?:physician|doctor)\\b"
+
+    # Other unambiguous
+    - "\\bphysiatrist\\b"
+    - "\\ballergist\\b"
+
+    # Additional medical specialties
+    - "\\bhepatologist\\b"
+    - "\\bsleep\\s+medicine\\b"
+    - "\\bpain\\s+(?:management|medicine)\\s+(?:physician|specialist|doctor)\\b"
+    - "\\bpain\\s+(?:management|medicine)\\b"
+    - "\\bpalliative\\s+(?:care|medicine)\\b"
+    - "\\bhospice\\s+(?:physician|doctor|medicine)\\b"
+    - "\\bsports\\s+medicine\\s+(?:physician|doctor)\\b"
+    - "\\baddiction\\s+(?:medicine|psychiatr)\\b"
+    - "\\boccupational\\s+medicine\\b"
+    - "\\baerospace\\s+medicine\\b"
+    - "\\bpreventive\\s+medicine\\b"
+    - "\\bmedical\\s+examiner\\b"
+    - "\\bforensic\\s+pathologist\\b"
+    - "\\breproductive\\s+endocrinolog\\b"
+    - "\\bmaternal[\\-\\s]fetal\\b"
+    - "\\bcritical\\s+care\\s+(?:physician|medicine)\\b"
+
+    # Pediatric subspecialties
+    - "\\bpediatric\\s+cardiologist\\b"
+    - "\\bpediatric\\s+neurologist\\b"
+    - "\\bpediatric\\s+oncologist\\b"
+    - "\\bpediatric\\s+gastroenterologist\\b"
+    - "\\bpediatric\\s+pulmonologist\\b"
+    - "\\bpediatric\\s+endocrinologist\\b"
+    - "\\bpediatric\\s+nephrologist\\b"
+    - "\\bpediatric\\s+rheumatologist\\b"
+    - "\\bpediatric\\s+hematologist\\b"
+    - "\\bpediatric\\s+intensivist\\b"
+    - "\\bpediatric\\s+anesthesiologist\\b"
+    - "\\bpediatric\\s+radiologist\\b"
+    - "\\bpediatric\\s+urologist\\b"
+    - "\\bpediatric\\s+ophthalmologist\\b"
+    - "\\bpediatric\\s+psychiatrist\\b"
+
+    # Administrative/leadership physician roles (unambiguous)
+    - "\\bchief\\s+medical\\s+officer\\b"
+    - "\\bcmo\\b(?=.*(?:hospital|health|medical|clinic))"
+    - "\\bmedical\\s+director\\b"
+    - "\\bphysician\\s+director\\b"
+    - "\\bvice\\s+president\\s+(?:of\\s+)?medical\\s+affairs\\b"
+    - "\\bchief\\s+of\\s+(?:surgery|medicine|staff|anesthesia|pathology|radiology)\\b"
+    - "\\bdepartment\\s+chief\\b"
+    - "\\bdivision\\s+chief\\b"
+
+# Tier 2: Likely positive indicators
+# These suggest physician but need context; score = 0.7
+tier2_positive:
+  occupation_terms:
+    - "\\bphysician\\b"
+    - "\\bmedical\\s+doctor\\b"
+    - "\\bdoctor\\s+of\\s+medicine\\b"
+    - "\\battending\\s+physician\\b"
+    - "\\bstaff\\s+physician\\b"
+    - "\\bpracticing\\s+physician\\b"
+    - "\\bretired\\s+physician\\b"
+    - "\\bfamily\\s+practice\\b"
+    - "\\bfamily\\s+medicine\\b"
+    - "\\bgeneral\\s+practice\\b"
+    - "\\binternal\\s+medicine\\b"
+    - "\\bpediatric(?:ian)?\\b"
+    - "\\bprimary\\s+care\\b"
+
+    # Training levels
+    - "\\bresident\\s+physician\\b"
+    - "\\bmedical\\s+resident\\b"
+    - "\\bchief\\s+resident\\b"
+    - "\\battending\\b"
+    - "\\bmedical\\s+fellow\\b"
+    - "\\bclinical\\s+fellow\\b"
+
+    # Practice descriptors
+    - "\\bprivate\\s+practice\\b"
+    - "\\bsolo\\s+practitioner\\b"
+    - "\\bself[\\-\\s]employed\\s+physician\\b"
+    - "\\bboard\\s+certified\\b"
+    - "\\bboard\\s+eligible\\b"
+
+    # Academic physician titles
+    - "\\bprofessor\\s+of\\s+(?:medicine|surgery|pediatrics|psychiatry|pathology|radiology|anesthesiology)\\b"
+    - "\\bclinical\\s+professor\\b"
+    - "\\bassociate\\s+professor\\s+of\\s+(?:medicine|surgery|pediatrics|psychiatry)\\b"
+    - "\\bassistant\\s+professor\\s+of\\s+(?:medicine|surgery|pediatrics|psychiatry)\\b"
+
+    # Sports medicine (without "physician" qualifier)
+    - "\\bsports\\s+medicine\\b"
+
+  # Employer terms that suggest physician when combined with occupation hints
+  employer_contexts:
+    - "\\bmedical\\s+(?:group|associates|partners|practice|clinic)\\b"
+    - "\\b(?:hospital|medical\\s+center)\\b"
+    - "\\bhealthcare\\s+(?:system|network)\\b"
+    - "\\buniversity\\s+(?:hospital|medical)\\b"
+    - "\\bacademic\\s+medical\\s+center\\b"
+    - "\\bkaiser\\b"
+    - "\\bcleveland\\s+clinic\\b"
+    - "\\bmayo\\s+clinic\\b"
+    - "\\bjohns\\s+hopkins\\b"
+
+# Tier 3: Exclusion patterns (false positive prevention)
+# If ANY of these match, do NOT classify as physician
+tier3_negative:
+  # Academic/research doctors (PhDs)
+  non_md_doctorates:
+    - "\\bph\\.?d\\.?\\b"
+    - "\\bdoctor\\s+of\\s+philosophy\\b"
+    - "\\bed\\.?d\\.?\\b"
+    - "\\bdoctor\\s+of\\s+education\\b"
+    - "\\bpsy\\.?d\\.?\\b"
+    - "\\bd\\.?sc\\.?\\b"
+    - "\\bdr\\.?p\\.?h\\.?\\b"
+
+  # Other healthcare professionals (not MDs/DOs)
+  non_physician_healthcare:
+    - "\\bchiropract(?:or|ic)\\b"
+    - "\\bnaturopath(?:ic)?\\b"
+    - "\\bosteopath(?:ic)?\\s+(?:manipulat|therap)\\b"  # OMT, not DO physicians
+    - "\\bdentist\\b"
+    - "\\bdental\\b"
+    - "\\bdds\\b"
+    - "\\bdmd\\b"
+    - "\\bpodiatr(?:ist|y)\\b"
+    - "\\boptometr(?:ist|y)\\b"
+    - "\\bveterinar(?:ian|y)\\b"
+    - "\\bpharmacist\\b"
+    - "\\bpharm\\.?d\\.?\\b"
+    - "\\bnurse\\s+practitioner\\b"
+    - "\\badvanced\\s+practice\\b"
+    - "\\baprn\\b"
+    - "\\bphysician\\s+assistant\\b"
+    - "\\b(?:pa-c|pa\\-c)\\b"
+    - "\\bpsycholog(?:ist|y)\\b"
+    - "\\blicensed\\s+clinical\\s+social\\s+worker\\b"
+    - "\\blcsw\\b"
+    - "\\bmarriage\\s+(?:and\\s+)?family\\s+therap\\b"
+    - "\\bmft\\b"
+    - "\\bphysical\\s+therap(?:ist|y)\\b"
+    - "\\boccupational\\s+therap(?:ist|y)\\b"
+    - "\\bspeech\\s+(?:language\\s+)?patholog\\b"
+    - "\\baudiolog(?:ist|y)\\b"
+    - "\\bmidwife\\b"
+    - "\\bacupunctur(?:ist|e)\\b"
+    - "\\bmassage\\s+therap\\b"
+    - "\\bregistered\\s+nurse\\b"
+    - "\\b(?:rn|lpn|lvn|cna)\\b"
+    - "\\bmedical\\s+assistant\\b"
+    - "\\bparamedic\\b"
+    - "\\bemt\\b"
+
+  # Academic titles without MD
+  academic_non_physician:
+    - "\\bprofessor\\b(?!.*\\b(?:md|m\\.d\\.))"
+    - "\\bresearch(?:er)?\\b(?!.*\\b(?:md|m\\.d\\.))"
+    - "\\bscientist\\b"
+    - "\\bpostdoc\\b"
+    - "\\bfellow(?:ship)?\\b(?!.*\\b(?:md|m\\.d\\.))"
+
+  # Occupation terms that are definitely not physicians
+  non_physician_occupations:
+    - "\\blawyer\\b"
+    - "\\battorney\\b"
+    - "\\bengineer\\b"
+    - "\\baccountant\\b"
+    - "\\bexecutive\\b"
+    - "\\bceo\\b"
+    - "\\bcfo\\b"
+    - "\\bcoo\\b"
+    - "\\bpresident\\b(?!.*\\b(?:medical|physician|md))"
+    - "\\bmanager\\b"
+    - "\\bconsultant\\b(?!.*\\b(?:medical|physician))"
+    - "\\bteacher\\b"
+    - "\\bprincipal\\b"
+    - "\\bsalesperson\\b"
+    - "\\brealtor\\b"
+    - "\\breal\\s+estate\\b"
+    - "\\bwriter\\b"
+    - "\\bauthor\\b"
+    - "\\bjournalist\\b"
+    - "\\bartist\\b"
+    - "\\bmusician\\b"
+    - "\\bactor\\b"
+    - "\\bactress\\b"
+    - "\\bprogrammer\\b"
+    - "\\bsoftware\\b"
+    - "\\bdeveloper\\b"
+    - "\\bfinancial\\s+(?:advisor|planner|analyst)\\b"
+    - "\\bbanker\\b"
+    - "\\binvestor\\b"
+    - "\\bhomemaker\\b"
+    - "\\bretired(?!\\s+(?:physician|doctor|surgeon|md))\\b"
+
+# Special patterns for name field credential detection
+name_credential_patterns:
+  positive:
+    - ",\\s*M\\.?D\\.?"
+    - ",\\s*D\\.?O\\.?"
+    - "\\bM\\.?D\\.?,?\\s*$"
+    - "\\bD\\.?O\\.?,?\\s*$"
+    # Fellowship credentials in name
+    - ",\\s*FACP\\b"
+    - ",\\s*FACS\\b"
+    - ",\\s*FACC\\b"
+    - ",\\s*FACEP\\b"
+    - ",\\s*FAAP\\b"
+    - ",\\s*FACOG\\b"
+    - ",\\s*FRCS\\b"
+
+  negative:
+    - ",\\s*Ph\\.?D\\.?"
+    - ",\\s*D\\.?D\\.?S\\.?"
+    - ",\\s*D\\.?M\\.?D\\.?"
+    - ",\\s*D\\.?V\\.?M\\.?"
+    - ",\\s*J\\.?D\\.?"
+    - ",\\s*Esq\\.?"
+    - ",\\s*D\\.?C\\.?"              # Doctor of Chiropractic
+    - ",\\s*O\\.?D\\.?"              # Doctor of Optometry
+
+# Minimum string lengths for matching
+min_occupation_length: 3
+min_employer_length: 3
+
+# Score assignments
+scores:
+  tier1_match: 1.0
+  tier2_match: 0.7
+  tier2_with_employer: 0.85
+  tier3_exclusion: 0.0
+  no_match: 0.3  # Default for ambiguous cases

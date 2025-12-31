@@ -1,0 +1,45 @@
+# Recipient Ideology Override Configuration
+#
+# This config allows plugging in external cycle-specific recipient ideology
+# data (e.g., DW-NOMINATE scores) instead of using static DIME CFScores.
+#
+# When enabled, the pipeline will use these external ideology scores for
+# computing revealed_cfscore_cycle, which avoids look-ahead bias from
+# static DIME CFScores that are estimated across many election cycles.
+#
+# Default: disabled (uses DIME recipient CFScores)
+
+enabled: false
+
+# Path to external ideology mapping file
+# Should contain columns: recipient_id, cycle, ideology score
+source: null  # e.g., "data/external/dw_nominate_recipients.parquet"
+
+# File format: parquet or csv
+format: parquet
+
+# Column name mapping
+columns:
+  # Column containing recipient identifier (should match DIME bonica_rid)
+  recipient_id: bonica_rid
+
+  # Column containing election cycle year
+  cycle: cycle
+
+  # Column containing ideology score
+  # Should be on similar scale as CFScore (-2 to +2 range, negative=liberal)
+  ideology: dw_nominate_score
+
+# Scaling configuration (optional)
+# If external ideology is on different scale, apply linear transformation
+scaling:
+  enabled: false
+  # New value = (original - offset) * multiplier
+  offset: 0.0
+  multiplier: 1.0
+
+# Notes:
+# - DW-NOMINATE scores are available for Congress members only, not all recipients
+# - When override is enabled but recipient not found in external file,
+#   falls back to DIME CFScore
+# - revealed_party_cycle is always computed from party (no look-ahead) regardless

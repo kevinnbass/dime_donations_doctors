@@ -1,0 +1,77 @@
+# Probabilistic Linkage Configuration
+# For extending Figure 1 beyond 2015 with bias < 1pp
+
+# Training configuration
+training:
+  # Ratio of negative to positive examples
+  negative_ratio: 5
+  # Fraction of negatives that are "hard" (same block)
+  hard_negative_ratio: 0.8
+  # Fraction for validation set
+  val_fraction: 0.2
+  # Column to stratify by for validation split
+  stratify_by: combined_informativeness
+  # Number of strata
+  n_strata: 10
+  # Random seed for reproducibility
+  random_seed: 42
+
+# Model configuration
+model:
+  # Model type: xgboost or logistic
+  type: xgboost
+  # Calibration method: isotonic or sigmoid
+  calibration: isotonic
+  # XGBoost hyperparameters
+  xgboost:
+    max_depth: 6
+    learning_rate: 0.1
+    n_estimators: 200
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 5
+    gamma: 0.1
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+
+# Inference configuration
+inference:
+  # Blocking keys for candidate generation
+  blocking_keys:
+    - state
+    - last_soundex
+  # Maximum candidates per physician
+  max_candidates_per_physician: 100
+  # Minimum probability to keep
+  min_probability: 0.01
+  # Prior probability of no match
+  no_match_prior: 0.3
+  # Softmax temperature for probability calibration
+  temperature: 1.0
+
+# One-to-one constraint configuration
+one_to_one:
+  # Whether to enforce one-to-one constraints
+  enabled: true
+  # Use soft (penalty-based) or greedy (hard) constraints
+  method: soft
+  # Penalty factor for over-saturation (soft method)
+  saturation_penalty: 0.5
+  # Maximum iterations for convergence (soft method)
+  max_iterations: 10
+
+# Validation configuration
+validation:
+  # Number of matchability strata
+  n_strata: 10
+  # Target maximum bias in percentage points
+  target_bias_pp: 1.0
+  # Number of bootstrap samples for confidence intervals
+  bootstrap_samples: 1000
+
+# Integration configuration
+integration:
+  # Number of imputations for multiple imputation
+  n_imputations: 100
+  # Minimum physicians per graduation year
+  min_physicians_per_year: 10

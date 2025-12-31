@@ -1,0 +1,65 @@
+# Non-Donor Selection Bounds Configuration
+#
+# This config defines the 5-scenario sensitivity grid for analyzing
+# selection bias from non-donor physicians.
+#
+# Each scenario makes different assumptions about non-donor ideology,
+# allowing us to compute implied population means under various conditions.
+
+scenarios:
+  S1_same_as_donors:
+    name: "Same as donors"
+    description: "Non-donors have same average ideology as donors"
+    mu_non_formula: "mu_donor"  # mu_non = mu_donor
+
+  S2_neutral:
+    name: "Neutral"
+    description: "Non-donors are ideologically neutral (centered at 0)"
+    mu_non_formula: "0"  # mu_non = 0
+
+  S3_moderated:
+    name: "Moderated toward center"
+    description: "Non-donors are halfway between donors and neutral"
+    mu_non_formula: "0.5 * mu_donor"  # mu_non = 0.5 * mu_donor
+
+  S4_opposite:
+    name: "Opposite"
+    description: "Non-donors have opposite ideology from donors"
+    mu_non_formula: "-mu_donor"  # mu_non = -mu_donor
+
+  S5_slightly_opposite:
+    name: "Slightly opposite"
+    description: "Non-donors lean slightly opposite from donors"
+    mu_non_formula: "-0.5 * mu_donor"  # mu_non = -0.5 * mu_donor
+
+# Donor participation rate sources
+# These are the different ways to estimate the share of physicians who donate
+participation_rate_sources:
+  nppes:
+    name: "NPPES denominator"
+    description: "Donors divided by total NPPES physicians"
+    priority: 1
+
+  ahrf:
+    name: "AHRF denominator"
+    description: "Donors divided by AHRF state physician totals"
+    priority: 2
+
+  observed:
+    name: "Observed linkage rate"
+    description: "Donor share among successfully linked physicians"
+    priority: 3
+
+# Notes:
+# - mu_donor is the observed mean ideology among physician donors
+# - mu_non is the assumed mean ideology among non-donor physicians
+# - mu_all = p * mu_donor + (1-p) * mu_non, where p is participation rate
+#
+# Interpretation:
+# - S1 (same): Selection is random, donors represent all physicians
+# - S2 (neutral): Non-donors are apolitical, donors are a biased sample
+# - S3 (moderated): Non-donors are less polarized than donors
+# - S4 (opposite): Extreme selection bias, donors are opposite of population
+# - S5 (slightly opposite): Moderate selection bias in opposite direction
+#
+# The range from S1 to S4/S5 provides bounds on possible population means.
