@@ -273,7 +273,7 @@ def plot_academic_physicians(output_path: Path, dpi: int = 150) -> None:
     ax.set_xlim(1988, 2026)
     ax.set_ylim(0, 100)
     ax.set_yticks(range(0, 101, 10))
-    ax.legend(loc='upper right', fontsize=18, framealpha=0.95)
+    ax.legend(loc='upper right', fontsize=27, framealpha=0.95)
     ax.grid(True, alpha=0.3)
     ax.tick_params(axis='both', which='major', labelsize=20)
 
