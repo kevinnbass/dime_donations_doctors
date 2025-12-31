@@ -183,9 +183,9 @@ def plot_contributions(
         title = f"{title}\n{subtitle}"
     ax.set_title(title, fontsize=14, fontweight="bold")
 
-    # Axis limits - use 70 for no-specialists, 80 for full version
+    # Axis limits - use 70 for simplified version, 80 for full version
     ax.set_xlim(1978, 2026)
-    if exclude_pools and "specialists" in exclude_pools:
+    if exclude_pools and len(exclude_pools) > 0:
         ax.set_ylim(10, 70)
     else:
         ax.set_ylim(10, 80)
@@ -303,13 +303,13 @@ Examples:
             dpi=args.dpi,
         )
 
-    # Without specialists
+    # Clean version for lay audience (no specialists, no CMS Medicare)
     plot_contributions(
         data,
         POOL_DEFINITIONS,
         output_dir / "physician_contributions_no_specialists.png",
-        exclude_pools=["specialists"],
-        subtitle="Excluding Medical Specialists pool",
+        exclude_pools=["specialists", "cms_medicare"],
+        subtitle="",
         dpi=args.dpi,
     )
 
